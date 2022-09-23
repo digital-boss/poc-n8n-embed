@@ -6,6 +6,9 @@ Main app has iframe with embedded n8n application.
 
 The idea behind this concept is that user management handled by main application and n8n always show workspace of logged in user. 
 
+Links:
+- https://n8n.io/embed/ 
+- https://docs.n8n.io/embed/ Documentation
 
 ## Log in
 
