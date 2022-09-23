@@ -1,0 +1,20 @@
+server {
+  listen 80;
+  listen [::]:80;
+  server_name localhost;
+
+  location /n8n/ {
+    proxy_pass http://n8n:5678/;
+  }
+
+  location / {
+    proxy_pass http://app:3000/;
+  }
+
+  error_page 500 502 503 504 /50x.html;
+  location = /50x.html {
+    root /usr/share/nginx/html;
+  }
+
+  
+}

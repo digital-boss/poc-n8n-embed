@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <script>
+      const loginFn = (e) => {
+        e.preventDefault(); // prevent form to be submitted
+        const login = document.getElementsByName('login')[0].value;
+        const password = document.getElementsByName('password')[0].value;
+        fetch('http://localhost:8080/n8n/rest/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({"email":login,"password":password})
+        })
+        .then(async res => {
+          const body = await res.json();
+          console.log(body);
+          if (res.status !== 200) {
+            if (body.message) {
+              alert(body.message)
+            } else {
+              alert('Login failed');
+            }
+          } else {
+            // document.getElementById('n8n').contentWindow.location.reload(true); - this method sometimes results in http://localhost:8080/n8n/n8n/ which is wrong. So we just assign location to refresh iframe:
+            document.getElementById('n8n').contentWindow.location = "http://localhost:8080/n8n/"
+          }
+        });
+        return false; // prevent form to be submitted
+      }
+    </script>
+
+    <form onsubmit="return loginFn(event)">
+      <label>Login:
+        <input type="text" name="login" />
+      </label> 
+      <label>Password:
+        <input type="password" name="password" />
+      </label> 
+      <input type="submit" value="login"/>
+    </form>
+
+    <h1>n8n Embedded</h1>
+    <iframe id="n8n" src="http://localhost:8080/n8n/" style="height:600px;width:100%;"></iframe>
+    <h2>Other Content</h2>
+    <p>
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eaque cumque natus praesentium nulla officiis, dolorem voluptatibus doloremque, rerum vel facere alias laborum quis consequuntur corrupti rem perferendis quos eos eius!
+    </p>
+</body>
+</html>
