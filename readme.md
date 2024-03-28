@@ -60,3 +60,8 @@ Go to http://localhost:8080.
 Refer to `Makefile` and `app/package.json` for all features.
 
 If you want to create users, create `.env` file in project root and setup `N8N_SMTP_*` variables.
+
+
+## Local
+
+    make up PROFILE=local SERVICES="<srv1> <srv2> ..."

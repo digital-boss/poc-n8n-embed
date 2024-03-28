@@ -1,6 +1,7 @@
 version: "3.3"
 services:
   n8n:
+    container_name: poc-embed-n8n
     image: n8nio/n8n
     volumes:
       - "${HOME}/.n8n:/home/node/.n8n"
@@ -23,13 +24,15 @@ services:
       - N8N_SMTP_PASS
 
   app:
+    container_name: poc-embed-app
     build: app
     volumes:
       - ./app/index.html:/app/index.html
     networks:
       - n8n-embed
 
-  web:
+  nginx:
+    container_name: poc-embed-nginx
     image: nginx
     networks:
       - n8n-embed

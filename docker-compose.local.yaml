@@ -1,0 +1,19 @@
+version: "3.3"
+services:
+  app:
+    container_name: poc-embed-app
+    build: app
+    volumes:
+      - ./app/index.html:/app/index.html
+    network_mode: host
+
+  nginx:
+    container_name: poc-embed-nginx
+    image: nginx
+    network_mode: host
+    volumes:
+      - ./nginx-templates-local:/etc/nginx/templates
+    environment:
+      - NGINX_HOST=127.0.0.1
+      - NGINX_PORT=8080
+

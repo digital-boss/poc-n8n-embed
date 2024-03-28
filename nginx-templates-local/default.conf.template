@@ -1,9 +1,9 @@
 server {
-  listen 80;
+  listen 8080;
   server_name localhost;
 
   location /n8n/ {
-    proxy_pass http://n8n:5678/;
+    proxy_pass http://localhost:5678/;
 
     # Following directive resolves "Connection lost" problem:
     # https://community.n8n.io/t/connection-lost/1471/60
@@ -11,6 +11,6 @@ server {
   }
 
   location / {
-    proxy_pass http://app:3000/;
+    proxy_pass http://localhost:3000/;
   }
 }

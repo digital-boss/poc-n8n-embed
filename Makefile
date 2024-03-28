@@ -1,13 +1,21 @@
-main: down up
+restart: down up
 
 build:
-	docker-compose build
+	docker compose build
 
 up:
-	docker-compose up -d
+ifdef PROFILE
+	docker compose -f docker-compose.$(PROFILE).yaml up -d $(SERVICES)
+else
+	docker compose up -d $(SERVICES)
+endif
+
+up/local/nginx:
+	docker compose -f docker-compose.local.yaml up -d nginx
+
+up/local/app:
+	cd app && npm start
 
 down:
-	docker-compose down
-
-local:
-	cd app && npm start
+	docker rm -f poc-embed-app
+	docker stop poc-embed-n8n poc-embed-nginx
